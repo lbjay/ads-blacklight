@@ -1,0 +1,8 @@
+production:
+    url: http://adsset:8986/solr/fulltext
+development:
+    url: http://adsset:8986/solr/fulltext
+test: &TEST
+    url: http://adsset:8986/solr/fulltext
+cucumber:
+    <<: *TEST
