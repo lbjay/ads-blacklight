@@ -38,7 +38,8 @@ Blacklight.configure(:shared) do |config|
   ##############################
 
   config[:default_solr_params] = {
-    :qt => "search",
+    :qt => "blacklight",
+    :fq => "ft_source:[* TO *]",
     :per_page => 10 
   }
   
@@ -51,7 +52,8 @@ Blacklight.configure(:shared) do |config|
 
   # solr fld values given special treatment in the index (search results) view
   config[:index] = {
-    :show_link => "title",
+    :show_link => "bibcode",
+    :fulltext_link => "title",
 #    :record_display_type => "format"
   }
 
@@ -65,15 +67,17 @@ Blacklight.configure(:shared) do |config|
       "database",
       "author_facet",
       "keyword_facet",
-      "pubyear",
+      "pubyear_facet",
       "facility_facet",
+      "bibstem",
     ]),  
     :labels => {
-      "pubyear"             => "Publication Year",
+      "pubyear_facet"       => "Publication Year",
       "author_facet"        => "Author",
       "keyword_facet"       => "Keyword",
       "facility_facet"      => "Facility/Instrument",
       "database"            => "Database",
+      "bibstem"             => "Journal Abbreviation",
     },  
     # Setting a limit will trigger Blacklight's 'more' facet values link.
     # * If left unset, then all facet values returned by solr will be displayed.
@@ -90,7 +94,10 @@ Blacklight.configure(:shared) do |config|
     # app code to actually have it echo'd back to see it.     
     :limits => {
       "keyword_facet" => 20,
-      "pubyear" => true
+      "author_facet" => 20,
+      "pubyear_facet" => 20,
+      "facility_facet" => 20,
+      "bibstem_facet" => 20
     }
   }
 
@@ -104,32 +111,18 @@ Blacklight.configure(:shared) do |config|
   #   The ordering of the field names is the order of the display 
   config[:index_fields] = {
     :field_names => [
-      "title",
+#      "title",
       "author",
-      "bibcode",
       "keyword",
-      "pubyear",
-      "database",
-      "volume",
-      "issue",
-      "spage",
-      "combined_score",
-      "citations",
-      "usage",
+      "journal_display",
+      "monograph",
     ],
     :labels => {
-      "title"           => "Title:",
+#      "title"           => "Title:",
       "author"          => "Authors:",
-      "bibcode"         => "Bibcode:",
       "keyword"         => "Keywords:",
-      "pubyear"         => "Publication Year:",
-      "volume"          => "Volume:",
-      "database"        => "Database:",
-      "issue"           => "Issue:",
-      "spage"           => "Start Page:",
-      "combined_score"  => "Combined Score:",
-      "citations"       => "Citation Count:",
-      "usage"           => "Usage:"
+      "journal_display" => "Journal:",
+      "monograph"       => "Monograph:",
     }
   }
 
@@ -141,22 +134,16 @@ Blacklight.configure(:shared) do |config|
       "author",
       "bibcode",
       "keyword",
-      "pubyear",
       "database",
-      "volume",
-      "issue",
-      "spage"
+      "journal_display",
     ],
     :labels => {
       "title"           => "Title:",
       "author"          => "Authors:",
       "bibcode"         => "Bibcode:",
       "keyword"         => "Keywords:",
-      "pubyear"         => "Publication Year:",
-      "volume"          => "Volume:",
       "database"        => "Database:",
-      "issue"           => "Issue:",
-      "spage"           => "Start Page:"
+      "journal_display" => "Journal:",
     }
   }
 
@@ -166,9 +153,11 @@ Blacklight.configure(:shared) do |config|
   # with :solr_parameters and :solr_local_parameters (the latter for $param
   # solr LocalParams that can reference other params). 
   config[:search_fields] ||= []
-  config[:search_fields] << {:key => "all_fields",  :display_label => 'All Fields', :qt => 'search'}
-#  config[:search_fields] << {:key => 'title', :qt => 'title_search'}
-#  config[:search_fields] << {:key =>'author', :qt => 'author_search'}
+  config[:search_fields] << {:key => "syn",  :display_label => 'Fulltext', :qt => 'blacklight'}
+  config[:search_fields] << {:key => "nosyn",  :display_label => 'Fulltext (No Synonyms)', :qt => 'blacklight_nosyn'}
+  config[:nosyn_field] = 'body'
+#  config[:search_fields] << {:key => 'title_syn', :display_label => 'Title', :qt => 'blacklight'}
+#  config[:search_fields] << {:key =>'author_syn', :display_label => 'Author', :qt => 'blacklight'}
 #  config[:search_fields] << {:key => 'subject', :qt=> 'subject_search'}
   
   # "sort results by" select (pulldown)
@@ -177,11 +166,11 @@ Blacklight.configure(:shared) do |config|
   # except in the relevancy case).
   # label is key, solr field is value
   config[:sort_fields] ||= []
-  config[:sort_fields] << ['relevance', 'score desc, pubyear desc, title asc']
-  config[:sort_fields] << ['year', 'pubyear desc, title asc']
-  config[:sort_fields] << ['combined_score', 'combined_score desc, title asc']
-  config[:sort_fields] << ['citations', 'citations desc, pub_year desc']
-  config[:sort_fields] << ['usage', 'usage desc, pub_year desc']
+  config[:sort_fields] << ['Relevance', 'score desc, pubdate_sort desc, title asc']
+  config[:sort_fields] << ['Publication Date', 'pubdate_sort desc, title asc']
+  config[:sort_fields] << ['Normalized Citation+Usage', 'combined_score desc, title asc']
+  config[:sort_fields] << ['Citation Count', 'citations desc, pubdate_sort desc']
+  config[:sort_fields] << ['Usage Count', 'usage desc, pubdate_sort desc']
   
   # If there are more than this many search results, no spelling ("did you 
   # mean") suggestion is offered.

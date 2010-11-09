@@ -1,0 +1,31 @@
+<%# default partial to display solr document fields in catalog index view -%>
+<dl class="defList">
+  
+  <% index_field_names.each do |solr_fname| -%>
+    <% if document.get solr_fname %>
+        <dt><%= h index_field_labels[solr_fname]%></dt>
+        <dd><%= h document.get(solr_fname) %></dd>
+    <% end -%>
+  <% end -%>
+
+</dl>
+<% if has_snippets(document) -%>
+    <div class="highlight-snippet">
+        <h5>Match context:</h5>
+        <% snippet_count = 0 -%>
+        <ul class="highlight-snippet-top">
+        <% get_hl_snippets(document).each do |snippet| -%>
+            <% if snippet_count == 3 -%>
+                </ul><ul class="highlight-snippet-more">
+            <% end -%>
+            <li>... <%= unescape_highlight(h(snippet)) %> ...</li>
+            <% snippet_count += 1 -%>
+        <% end -%>
+        </ul>
+        <% if snippet_count >= 3 -%>
+            <div class="highlight-snippet-more-link">
+                <a href="#more">more ...</a>
+            </div>
+        <% end -%>
+    </div>
+<% end -%>

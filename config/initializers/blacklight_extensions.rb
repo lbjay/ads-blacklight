@@ -5,14 +5,14 @@
 # this is one, it looks kinda complicated becuase it's trying to deal with
 # cache_classes=false business.
 
-#module LocalAssetInclude
-#  def add_local_assets
+module LocalAssetInclude
+  def add_local_assets
 #     # my_local_stylesheet.css should be found in your app's public/stylesheets/
 #     stylesheet_links << "my_local_stylesheet"
-#     # my_local_script.js should be found in your app's public/javascripts/
-#     javascript_includes << "my_local_javascript"
-#  end
-#end
+     # my_local_script.js should be found in your app's public/javascripts/
+     javascript_includes << "my_local_javascript"
+  end
+end
 
 # We use Dispatcher.to_prepare to deal with cache_classes=false, when the
 # controller may (or may not) be reloaded on every request. to_prepare
@@ -22,9 +22,9 @@
 #
 # To add just for certain controller(s) instead of all, use specific
 # controller(s) instead of ApplicationController
-#Dispatcher.to_prepare do
-#  unless ApplicationController.kind_of?( LocalAssetInclude )
-#     ApplicationController.send(:include, LocalAssetInclude )
-#     ApplicationController.before_filter(:add_local_assets)
-##  end
-#end
+ActionController::Dispatcher.to_prepare do
+  unless ApplicationController.kind_of?( LocalAssetInclude )
+     ApplicationController.send(:include, LocalAssetInclude )
+     ApplicationController.before_filter(:add_local_assets)
+  end
+end

@@ -431,7 +431,37 @@ Search Parameters
   padding-right:37px; /* leave room for close button */ 
 }
 
+div.highlight-snippet { 
+  margin: 5px 30px;
+  padding: 5px 8px;
+  background-color: #EDECEB;
+  border: solid 1px #D9D8D7;
+}
 
+div.highlight-snippet em {
+    font-weight: bold;
+    background-color: #FFFB89;
+}
+
+div.highlight-snippet h5 {
+    margin-bottom: 5px;
+}
+
+div.highlight-snippet p {
+    font-family: 'Times New Roman';
+}
+
+h3.index_title a {
+    a:hover {background: #ddd;}
+}
+
+ul.highlight-snippet-more {
+    display: none;
+}
+
+div.highlight-snippet-more-link {
+    margin-left: 10px;
+}
 
 
 

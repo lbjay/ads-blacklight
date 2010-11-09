@@ -1,3 +1,6 @@
 vendor*
 tmp*
 test*
+db*
+log*
+public/plugin_assets*
