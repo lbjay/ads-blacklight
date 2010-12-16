@@ -27,7 +27,7 @@ a:hover {color: #029;}
 #hd {margin: 0em 2em 0 2em; padding: 2em 0 2em 0; }
 #hd .yui-g {text-align: right;}
 #hd .yui-g .first {text-align: left;}
-#doc, #doc2, #doc3, #doc4 {background: #fff url('../images/border.png') repeat-x top left; border-bottom: 2px solid #555; margin: 0px auto;}
+#doc, #doc2, #doc3, #doc4 {background: #fff url('../images/border.png') repeat-x top left; border-bottom: 2px solid #555; margin: 0px auto;} 
 /* border-top: 10px solid #548cd8; -moz-border-top-colors: #548cd8 #5188d3 #4e84d0 #4b81cd #497dc9 #457ac6 #4376c2 #4173be #3e71bc #3d6fba; */
 
 /* Body Container Layout */
@@ -431,16 +431,17 @@ Search Parameters
   padding-right:37px; /* leave room for close button */ 
 }
 
-div.highlight-snippet { 
+/*div.highlight-snippet { 
   margin: 5px 30px;
   padding: 5px 8px;
   background-color: #EDECEB;
   border: solid 1px #D9D8D7;
 }
+*/
 
-div.highlight-snippet em {
+em.search-highlight {
     font-weight: bold;
-    background-color: #FFFB89;
+    background-color: #FFFDBF;
 }
 
 div.highlight-snippet h5 {
@@ -463,5 +464,131 @@ div.highlight-snippet-more-link {
     margin-left: 10px;
 }
 
+#site-title {
+    font-size: 120%;
+}
 
+div#logo-labs {
+    float: left;
+    background-image: url(/ui/static/figs/adslogo_labs.jpg);
+    padding: 10px 0 10px 200px;
+    background-repeat: no-repeat;
+}
+
+img#logo-nasa {
+    float:right;
+    margin-left: 20px;
+}
+
+div#hd {
+    width: 100%;
+}
+
+#doc4 { 
+    background: #CCCCFF; 
+    width: 950px;
+}
+
+#menu {
+    background-color: #BBBBBB;
+    height: 14px;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+}
+
+#menu ul {
+    list-style: none outside;
+    padding: 0;
+}
+
+#menu li { 
+    display: inline;
+    margin: 0 2px 0 0;
+    border-right: solid 2px #CCCCFF; 
+    float: left;
+    padding: 6px 15px;
+}
+
+#menu a:link,
+#menu a:visited {
+  text-decoration: none;
+}
+
+#menu a:hover {
+  color: #fff;
+  background-color: #000066;
+}
+
+#headerclear,#menuclear {
+  display: none;
+}
+
+html>body #headerclear {
+  display: block;
+  clear: both;
+}
+
+html>body #menuclear {
+  display: block;
+  clear: both;
+}
+
+#bd {
+    background-color: #fff;
+}
+
+.pagination {
+    margin-top: 0px;
+}
+
+#document-list {
+    background-color: #fff;
+}
+
+#document-list li.search-result {
+    margin-bottom: 20px;
+}
+
+span.index-counter {
+    margin-left: -40px;
+}
+
+h3.index_title {
+    width: 640px;
+}
+
+h3.index_title a:link,
+h3.index_title a:visited {
+    text-decoration: none;
+}
+
+h3.index_title a:hover {
+    color: #00f;
+}
+
+h3.index_title a.abstract-link {
+    color: #333;
+}
+
+#documents .document {
+    padding: 0px 20px;
+}
+
+#documents .document p {
+    margin: 5px 0px;
+}
+
+div.highlight-snippet em {
+    color: black;
+    font-weight: bold;
+}
+
+p.journal-display {
+    font-style: italic;
+}
+
+#documents {
+    background-color: #fff;
+}
 

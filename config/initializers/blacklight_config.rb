@@ -39,7 +39,6 @@ Blacklight.configure(:shared) do |config|
 
   config[:default_solr_params] = {
     :qt => "blacklight",
-    :fq => "ft_source:[* TO *]",
     :per_page => 10 
   }
   
@@ -66,10 +65,10 @@ Blacklight.configure(:shared) do |config|
     :field_names => (facet_fields = [
       "database",
       "author_facet",
+      "bibstem",
       "keyword_facet",
       "pubyear_facet",
       "facility_facet",
-      "bibstem",
     ]),  
     :labels => {
       "pubyear_facet"       => "Publication Year",

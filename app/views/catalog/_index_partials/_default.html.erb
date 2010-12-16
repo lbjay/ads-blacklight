@@ -8,24 +8,26 @@
     <% end -%>
   <% end -%>
 
-</dl>
 <% if has_snippets(document) -%>
-    <div class="highlight-snippet">
-        <h5>Match context:</h5>
-        <% snippet_count = 0 -%>
-        <ul class="highlight-snippet-top">
-        <% get_hl_snippets(document).each do |snippet| -%>
-            <% if snippet_count == 3 -%>
-                </ul><ul class="highlight-snippet-more">
+    <dt>Match context:</dt>
+    <dd>
+        <div class="highlight-snippet">
+            <% snippet_count = 0 -%>
+            <ul class="highlight-snippet-top">
+            <% get_hl_snippets(document).each do |snippet| -%>
+                <% if snippet_count == 3 -%>
+                    </ul><ul class="highlight-snippet-more">
+                <% end -%>
+                <li>... <%= unescape_highlight(h(snippet)) %> ...</li>
+                <% snippet_count += 1 -%>
             <% end -%>
-            <li>... <%= unescape_highlight(h(snippet)) %> ...</li>
-            <% snippet_count += 1 -%>
-        <% end -%>
-        </ul>
-        <% if snippet_count >= 3 -%>
-            <div class="highlight-snippet-more-link">
-                <a href="#more">more ...</a>
-            </div>
-        <% end -%>
-    </div>
+            </ul>
+            <% if snippet_count >= 3 -%>
+                <div class="highlight-snippet-more-link">
+                    <a href="#more">more ...</a>
+                </div>
+            <% end -%>
+        </div>
+    </dd>
 <% end -%>
+</dl>

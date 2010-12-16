@@ -1,36 +1,65 @@
 <% # container for all documents in index view -%>
 <div id="documents">
   
+  <ol id="document-list">
   <% # loop thru each doc -%>
   <% @document_list.each_with_index do |document,counter| %>
-
+    <li class="search-result">
     <% # container for a single doc -%>
     <div class="document">
       
       <% # header bar for doc items in index view -%>
-      <div class="documentHeader yui-g">
+      <div class="documentHeader">
         
         <% # list controls for items/docs -%>
+        <!--
         <div class="yui-u documentFunctions">
           <%= render :partial=>'bookmark_control', :locals=>{:document=>document} %>
         </div>
+        -->
         
         <% # main title container for doc partial view -%>
 
-        <div class="yui-u">
+        <div class="document-title yui-u">
           <h3 class="index_title">
-          <%= counter + 1 + @response.params[:start].to_i %>. 
-          <%= link_to_abstract document, :label => document_show_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %>
           <%= link_to_fulltext document, :label => document_fulltext_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %>
+          [<%= link_to_abstract document, :label => document_show_link_field, :counter => (counter + 1 + @response.params[:start].to_i) %>]
           </h3>
         </div>
         
       </div>
       
+      <p class="author-display"><%= document.get("author", :sep => "; ") %></p>
+      <p class="journal-display"><%= document.get("journal_display") %></p>
+      <p class="debug-display">combined_score: <%= document.get("combined_score") %></p>
+      <p class="debug-display">citations: <%= document.get("citations") %></p>
+      <p class="debug-display">usage: <%= document.get("usage") %></p>
+        <% if has_snippets(document) -%>
+        <div class="highlight-snippet">
+            <em>fulltext matches for your terms</em>
+            <% snippet_count = 0 -%>
+            <ul class="highlight-snippet-top">
+            <% get_hl_snippets(document).each do |snippet| -%>
+                <% if snippet_count == 3 -%>
+                    </ul><ul class="highlight-snippet-more">
+                <% end -%>
+                    <li>... <%= snippet %> ...</li>
+                <% snippet_count += 1 -%>
+            <% end -%>
+            </ul>
+            <% if snippet_count >= 3 -%>
+                <div class="highlight-snippet-more-link">
+                    <a href="#more">more ...</a>
+                </div>
+            <% end -%>
+        </div>
+        <% end -%>
       <% # main container for doc partial view -%>
-      <%= render_document_partial document, :index %>
+      <%#= render_document_partial document, :index %>
 
     </div>
+    </li>
     
   <% end %>
+  </ol>
 </div>
