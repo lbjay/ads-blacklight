@@ -167,11 +167,11 @@ Blacklight.configure(:shared) do |config|
   # except in the relevancy case).
   # label is key, solr field is value
   config[:sort_fields] ||= []
-  config[:sort_fields] << ['Relevance', 'score desc, pubdate_sort desc, title asc']
-  config[:sort_fields] << ['Publication Date', 'pubdate_sort desc, title asc']
-  config[:sort_fields] << ['Normalized Citation + Usage', 'cite_read_score desc, title asc']
-  config[:sort_fields] << ['Citation Count', 'norm_cite_score desc, pubdate_sort desc']
+  config[:sort_fields] << ['Search Relevance Score', 'score desc, pubdate_sort desc, title asc']
+  config[:sort_fields] << ['Normalized Citation + Usage Score', 'norm_cite_read_score desc, title asc']
+  config[:sort_fields] << ['Citation + Usage Count', 'cite_read_count desc, pubdate_sort desc']
   config[:sort_fields] << ['Usage Count', 'read_count desc, pubdate_sort desc']
+  config[:sort_fields] << ['Publication Date', 'pubdate_sort desc, title asc']
   
   # If there are more than this many search results, no spelling ("did you 
   # mean") suggestion is offered.

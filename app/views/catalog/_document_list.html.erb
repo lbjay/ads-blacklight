@@ -32,10 +32,10 @@
       <p class="author-display"><%= document.get("author", :sep => "; ") %></p>
       <p class="journal-display"><%= document.get("journal_display") %></p>
       <!--
-      <p class="debug-display">cite_read_score: <%= document.get("cite_read_score") %></p>
-      <p class="debug-display">norm_cite_score: <%= document.get("norm_cite_score") %></p>
-      <p class="debug-display">read_count: <%= document.get("read_count") %></p>
-      <p class="debug-display">score: <%= document.get("score") %></p>
+      <p class="debug-display">Normalized Citation + Usage Score: <%= document.get("norm_cite_read_score") %></p>
+      <p class="debug-display">Citation + Usage Count: <%= document.get("cite_read_count") %></p>
+      <p class="debug-display">Usage Count: <%= document.get("read_count") %></p>
+      <p class="debug-display">Solr Score: <%= document.get("score") %></p>
       -->
 
         <% if has_snippets(document) -%>
