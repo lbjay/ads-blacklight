@@ -31,9 +31,13 @@
       
       <p class="author-display"><%= document.get("author", :sep => "; ") %></p>
       <p class="journal-display"><%= document.get("journal_display") %></p>
-      <p class="debug-display">combined_score: <%= document.get("combined_score") %></p>
-      <p class="debug-display">citations: <%= document.get("citations") %></p>
-      <p class="debug-display">usage: <%= document.get("usage") %></p>
+      <!--
+      <p class="debug-display">cite_read_score: <%= document.get("cite_read_score") %></p>
+      <p class="debug-display">norm_cite_score: <%= document.get("norm_cite_score") %></p>
+      <p class="debug-display">read_count: <%= document.get("read_count") %></p>
+      <p class="debug-display">score: <%= document.get("score") %></p>
+      -->
+
         <% if has_snippets(document) -%>
         <div class="highlight-snippet">
             <em>fulltext matches for your terms</em>

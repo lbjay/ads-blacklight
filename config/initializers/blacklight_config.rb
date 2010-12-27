@@ -39,6 +39,8 @@ Blacklight.configure(:shared) do |config|
 
   config[:default_solr_params] = {
     :qt => "blacklight",
+#    :bf => "sqrt(cite_read_score)",
+#    :defType => "edismax",
     :per_page => 10 
   }
   
@@ -167,9 +169,9 @@ Blacklight.configure(:shared) do |config|
   config[:sort_fields] ||= []
   config[:sort_fields] << ['Relevance', 'score desc, pubdate_sort desc, title asc']
   config[:sort_fields] << ['Publication Date', 'pubdate_sort desc, title asc']
-  config[:sort_fields] << ['Normalized Citation+Usage', 'combined_score desc, title asc']
-  config[:sort_fields] << ['Citation Count', 'citations desc, pubdate_sort desc']
-  config[:sort_fields] << ['Usage Count', 'usage desc, pubdate_sort desc']
+  config[:sort_fields] << ['Normalized Citation + Usage', 'cite_read_score desc, title asc']
+  config[:sort_fields] << ['Citation Count', 'norm_cite_score desc, pubdate_sort desc']
+  config[:sort_fields] << ['Usage Count', 'read_count desc, pubdate_sort desc']
   
   # If there are more than this many search results, no spelling ("did you 
   # mean") suggestion is offered.
